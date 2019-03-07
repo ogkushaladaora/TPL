@@ -9,11 +9,11 @@ class expr:
 	pass
 
 class boolexpr(expr):
-	def __init__(self val):
+	def __init__(self, val):
 		self.value = val
 
 class notexpr(expr):
-	def __init__(self e):
+	def __init__(self, e):
 		self.value = e
 
 class andexpr(expr):
@@ -25,3 +25,4 @@ class orexpr(expr):
 	def __init__(self, lhs, rhs):
 		self.lhs = lhs
 		self.rhs = rhs
+

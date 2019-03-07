@@ -8,22 +8,20 @@ class expr:
 	#		e1 or e2
 	pass
 
-classs boolexpr(expr):
+class boolexpr(expr):
 	def __init__(self val):
 		self.value = val
 
-classs notexpr(expr):
+class notexpr(expr):
 	def __init__(self e):
 		self.value = e
 
-classs andexpr(expr):
-
+class andexpr(expr):
 	def __init__(self, lhs, rhs):
-
 		self.lhs = lhs
 		self.rhs = rhs
 
-classs orexpr(expr):
+class orexpr(expr):
 	def __init__(self, lhs, rhs):
 		self.lhs = lhs
 		self.rhs = rhs

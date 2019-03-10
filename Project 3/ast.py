@@ -222,6 +222,52 @@ def step_or(e):
     assert False
 
 
+def subst(e):
+    # [x->v]x = v
+    # [x->v]y = y (y != x)
+
+    if type(e) is IdExpr:
+        if e.id in s: #FIX: this is wrong
+            return s[e.id]
+        else:
+            return e
+
+    # [x->v] \x.e1 = \x.[x->v]e1
+    if type(e) is AbsExpr:
+        return AbsExpr(e.var, subst(e.Expr, s))
+
+    if type(e) is AppExpr:
+        return AppExpr(subst(e.lhs, s), subst(e.rhs, s))
+
+    assert False
+
+def step_app(e):
+    #
+    #   e1 ~> e1`
+    # ---------------App-1
+    # e1 e2 ~> e1` e2
+    #
+    #    e2 ~> e2`
+    # -------------------App-2
+    # \x.e1 e2 ~> \x.e1 e2`
+    #
+    #
+    #-------------------App-3
+    # \x.e1 v ~> [x->v]e1
+
+    if is_lambda_reducible(e.lhs): #app-1
+        return AppExpr(step(e.lhs), e.rhs)
+
+    if type(e.lhs) is not AbsExpr:
+        raise Exception("application of non-lambda")
+
+    if is_lambda_reducible(e.rhs): #app-2
+        return AppExpr(e.lhs, step(e.rhs))
+
+    s = {e.lhs.var: e.rhs}
+    return subst(e.lhs.expr s)
+
+
 def step(e):
     """compute the net state of the program"""
     assert is_reducible(e)

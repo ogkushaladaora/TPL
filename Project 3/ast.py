@@ -99,7 +99,7 @@ def step_not(e):
         # not e1 -> not e1`
         if type(e.expr) is bool:
             # if is_value(e.Expr)
-            if e.expr.value != True:  # not true
+            if e.expr.value == True:  # not true
                 return BoolExpr(False)
             else:
                 return BoolExpr(True)  # not false

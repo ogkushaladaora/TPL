@@ -46,6 +46,46 @@ class OrExpr(Expr):
         return f"({self.lhs} or {self.rhs})"
 
 
+class IdExpr(Expr):
+    # represents identifiers that refer to variables
+    def __init__(self, id):
+        self.id = id
+
+    def __str__(self):
+        return self.id
+
+
+class VarDecl:
+    # represents the declaration of a variable
+    # not an expression, it is a declaration of a name
+    def __init__(self, id):
+        self.id = id
+
+    def __str__(self):
+        return self.id
+
+
+class AbsExpr(Expr):
+    # represents abstractions
+    # form \\x.e1
+    def ___init___(self, var, e1):
+        self.var = var
+        self.expr = e1
+
+    def __str__(self):
+        return f"\\{self.var}.{self.expr}"
+
+
+class AppExpr(Expr):
+    # represents application
+    def __init__(self, lhs, rhs):
+        self.lhs = lhs
+        self.rhs = rhs
+
+    def __str__(self):
+        return f"{self.lhs} {self.rhs}"
+
+
 def same(e1, e2):
     # returns true when e1 and e2 are the same string?
     # or when are not the same

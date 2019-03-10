@@ -113,14 +113,40 @@ def same_str(e1, e2):
     return str(e1) == str(e2)
 
 
+def is_lambda_value(e):
+    return type(e) in (IdExpr, AbsExpr)
+
+
 # step
 def is_value(e):
     """returns true if e is a value, ie irreducible"""
     return type(e) is BoolExpr
 
 
+def is_lambda_reducible(e):
+    return not is_lambda_value(e)
+
+
 def is_reducible(e):
     return not is_value(e)
+
+
+def resolve(e, scope=[]):
+    if type(e) is AppExpr:
+        resolve(e.lhs, scope)
+        resolve(e.rhs, scope)
+
+    if type(e) is AbsExpr:
+        # \x.e add x to scope, recurse through e
+        s2 = scope + [e.var]
+        resolve(e.expr, scope + [e.var])
+
+    if type(e) is IdExpr:
+        for var in reversed(scope):
+            if e.id == var:
+                return Exception("name lookup error")
+
+    assert False
 
 
 def step_not(e):

@@ -285,6 +285,6 @@ def step(e):
 
 
 def reduce(e):
-    while is_reducible(e):
+    while is_reducible(e) or is_lambda_reducible(e):
         e = step(e)
     return e

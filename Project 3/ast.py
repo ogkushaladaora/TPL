@@ -15,13 +15,16 @@ class Type:
     # represents bool and int types
     pass
 
+
 class BoolType(Type):
     def __str__(self):
         return "Bool"
 
+
 class IntType(Type):
     def __str__(self):
         return "Int"
+
 
 class BoolExpr(Expr):
     def __init__(self, val):
@@ -29,6 +32,7 @@ class BoolExpr(Expr):
 
     def __str__(self):
         return "true" if self.value == True else "false"
+
 
 class NotExpr(Expr):
     def __init__(self, e):

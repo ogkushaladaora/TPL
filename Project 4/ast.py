@@ -11,6 +11,7 @@ class Expr:
     #       false
     pass
 
+
 class Type:
     # represents bool and int types
     pass
@@ -302,3 +303,6 @@ def reduce(e):
     while is_reducible(e) or is_lambda_reducible(e):
         e = step(e)
     return e
+
+
+import * from resolve.py

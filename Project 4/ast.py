@@ -11,6 +11,20 @@ class Expr:
     #       false
     pass
 
+class Type:
+    # represents bool and int types
+    pass
+
+
+class BoolType(Type):
+    def __str__(self):
+        return "Bool"
+
+
+class IntType(Type):
+    def __str__(self):
+        return "Int"
+
 
 class BoolExpr(Expr):
     def __init__(self, val):

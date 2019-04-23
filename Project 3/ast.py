@@ -30,7 +30,6 @@ class BoolExpr(Expr):
     def __str__(self):
         return "true" if self.value == True else "false"
 
-
 class NotExpr(Expr):
     def __init__(self, e):
         self.value = e

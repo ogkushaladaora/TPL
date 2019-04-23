@@ -3,7 +3,7 @@ class Expr:
     #
     # e ::= true
     #       false
-    #       net e1
+    #       not e1
     #       e1 and e2
     #       e1 or e2
     #
@@ -14,6 +14,11 @@ class Expr:
 
 class Type:
     # represents bool and int types
+    pass
+
+
+class Value:
+    # values boot and ints
     pass
 
 
@@ -33,6 +38,14 @@ class BoolExpr(Expr):
 
     def __str__(self):
         return "true" if self.value == True else "false"
+
+
+class IntExpr(Expr):
+    def __init__(self, val):
+        self.value = val
+
+    def __str__(self):
+        return val
 
 
 class NotExpr(Expr):
@@ -146,22 +159,7 @@ def is_reducible(e):
     return not is_value(e)
 
 
-def resolve(e, scope=[]):
-    if type(e) is AppExpr:
-        resolve(e.lhs, scope)
-        resolve(e.rhs, scope)
-
-    if type(e) is AbsExpr:
-        # \x.e add x to scope, recurse through e
-        s2 = scope + [e.var]
-        resolve(e.expr, scope + [e.var])
-
-    if type(e) is IdExpr:
-        for var in reversed(scope):
-            if e.id == var:
-                return Exception("name lookup error")
-
-    assert False
+import * from resolve.py
 
 
 def step_not(e):
@@ -303,6 +301,3 @@ def reduce(e):
     while is_reducible(e) or is_lambda_reducible(e):
         e = step(e)
     return e
-
-
-import * from resolve.py

@@ -267,10 +267,12 @@ def step_app(e):
     s = {e.lhs.var: e.rhs}
     return subst(e.lhs.expr s)
 
-
 def step(e):
     """compute the net state of the program"""
-    assert is_reducible(e)
+    assert is_reducible(e) || is_lambda_reducible(e)
+
+    if type(e) is AbsExpr:
+        return step_app(e)
 
     if type(e) is NotExpr:
         return step_not(e)

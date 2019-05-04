@@ -71,7 +71,6 @@ class IfExpr(Expr):
 
 
 class IdExpr(Expr):
-    # represents identifiers that refer to variables
     def __init__(self, id):
         self.id = id
 

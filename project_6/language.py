@@ -70,14 +70,10 @@ def lookup(id : str, stk : list):
 
 import resolve.py
 
-
 import isdefs.py
-
 
 import check.py
 
-
 import reduc.py
-
 
 import evaluate.py

@@ -125,5 +125,6 @@ def resolve(e : Expr, stk : list = []):
             resolve(c.expr, newstk)
         return e
 
-    print(repr(e))
+        print(repr(e))
+
     assert False
